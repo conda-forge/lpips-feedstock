@@ -22,10 +22,10 @@ requirements:
     - setuptools
   run:
     - python >={{ python_min }}
-    - numpy
+    - numpy >=1.14.3
     - pytorch  >=0.4.0
-    - torchvision
-    - scipy
+    - torchvision  >=0.2.1
+    - scipy  >=1.0.1
     - scikit-image  >=0.13.0
     - opencv  >=2.4.11
     - matplotlib-base  >=1.5.1
@@ -46,7 +46,7 @@ about:
   license: BSD-2-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: "LPIPS metric"
+  summary: LPIPS metric
   doc_url: https://richzhang.github.io/PerceptualSimilarity/
   dev_url: https://github.com/richzhang/PerceptualSimilarity/
 
