@@ -45,5 +45,6 @@ about:
 
 extra:
   recipe-maintainers:
+    - jeongseok-meta
     - oblute
     - mxr-conda
