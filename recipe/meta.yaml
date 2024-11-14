@@ -1,5 +1,6 @@
 {% set name = "lpips" %}
-{% set version = "0.1.3" %}
+{% set version = "0.1.4" %}
+{% set python_min = python_min|default("3.6") %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +8,7 @@ package:
 
 source:
   url: https://github.com/richzhang/PerceptualSimilarity/archive/v{{ version }}.tar.gz
-  sha256: 77421534aa45fb8c41b48b7f1d81ffc8a5fd58f4ee57a5b59794ac1f1acfe74c
+  sha256: 6b42640be6c4a35e70930ce4f28c5fdb7584aeea2b03be2ffc3128be0cd57bca
 
 build:
   noarch: python
@@ -17,13 +18,14 @@ build:
 requirements:
   host:
     - pip
-    - python  >=3.6
+    - python {{ python_min }}
+    - setuptools
   run:
-    - python  >=3.6
-    - numpy
+    - python >={{ python_min }}
+    - numpy >=1.14.3
     - pytorch  >=0.4.0
-    - torchvision
-    - scipy
+    - torchvision  >=0.2.1
+    - scipy  >=1.0.1
     - scikit-image  >=0.13.0
     - opencv  >=2.4.11
     - matplotlib-base  >=1.5.1
@@ -33,13 +35,18 @@ requirements:
 test:
   imports:
     - lpips
+  commands:
+    - pip check
+  requires:
+    - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/richzhang/PerceptualSimilarity/
   license: BSD-2-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: "LPIPS metric"
+  summary: LPIPS metric
   doc_url: https://richzhang.github.io/PerceptualSimilarity/
   dev_url: https://github.com/richzhang/PerceptualSimilarity/
 
