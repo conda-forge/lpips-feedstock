@@ -1,0 +1,65 @@
+schema_version: 1
+
+context:
+  name: lpips
+  version: "0.1.4"
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/richzhang/PerceptualSimilarity/archive/v${{ version }}.tar.gz
+  sha256: 6b42640be6c4a35e70930ce4f28c5fdb7584aeea2b03be2ffc3128be0cd57bca
+
+build:
+  number: 1
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - pip
+    - setuptools
+  run:
+    - python >=${{ python_min }}
+    - numpy >=1.14.3
+    - pytorch >=0.4.0
+    - torchvision >=0.2.1
+    - scipy >=1.0.1
+    - scikit-image >=0.13.0
+    - opencv >=2.4.11
+    - matplotlib-base >=1.5.1
+    - tqdm >=4.28.1
+    - jupyter
+
+tests:
+  - python:
+      imports:
+        - lpips
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
+  - script:
+      - python -c "import lpips, torch; result = lpips.normalize_tensor(torch.ones(1, 3, 2, 2)); assert result.shape == (1, 3, 2, 2)"
+    requirements:
+      run:
+        - python ${{ python_min }}.*
+
+about:
+  homepage: https://github.com/richzhang/PerceptualSimilarity/
+  repository: https://github.com/richzhang/PerceptualSimilarity/
+  documentation: https://richzhang.github.io/PerceptualSimilarity/
+  summary: LPIPS metric
+  license: BSD-2-Clause
+  license_family: BSD
+  license_file: LICENSE
+
+extra:
+  feedstock-name: lpips
+  recipe-maintainers:
+    - jeongseok-meta
+    - oblute
+    - mxr-conda
